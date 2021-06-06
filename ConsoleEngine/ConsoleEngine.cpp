@@ -8,8 +8,10 @@ int main(int argc, char* argv[])
     ObjectsPoolSystem objectsPoolSystem;
    
     FrameSystem frame_system;
-    GameObjectModel model = {0, Updatable, '#', {0, 0}};
-    Character *character = new Character(model);
+
+    //Test character creating
+    GameObjectModel testCharacterModel = {0, Updatable, '#', {0, 0}};
+    Character *character = new Character(testCharacterModel);
     objectsPoolSystem.AddGameObject(character);
     
     ScreenSystem screenSystem;

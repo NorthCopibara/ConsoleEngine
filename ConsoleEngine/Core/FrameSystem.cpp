@@ -14,7 +14,7 @@ double frameRate = 30;
 std::vector<Executable*> _executablesObject;
 
 void StartFrameUpdating();
-void ExecuteMain();
+void UpdateObjects();
 
 void FrameSystem::Start()
 {
@@ -31,13 +31,12 @@ double ClockToMilliseconds(clock_t ticks)
     return (ticks / (double)CLOCKS_PER_SEC) * 1000.0;
 }
 
-void ExecuteMain()
+void UpdateObjects()
 {
     for (auto& object : _executablesObject)
     {
         object->Execute();
     }
-    //std::cout << frameRate << std::endl;
 }
 
 void StartFrameUpdating()
@@ -45,7 +44,7 @@ void StartFrameUpdating()
     while (true)
     {
         clock_t beginFrame = clock();
-        ExecuteMain();
+        UpdateObjects();
         Sleep(1);
         clock_t endFrame = clock();
 

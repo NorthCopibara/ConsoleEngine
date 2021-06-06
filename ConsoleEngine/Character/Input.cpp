@@ -1,5 +1,4 @@
 ﻿#include <conio.h>
-#include <iostream>
 #include "Input.h"
 
 Direction Input::GetInput()

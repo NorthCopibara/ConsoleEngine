@@ -15,8 +15,10 @@ HANDLE _hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
 COORD CreateLastPositionCOORD(GameObject* object);
 COORD CreateCurrentPositionCOORD(GameObject* object);
-void CheckWayOutOfSizePlayingField(COORD currentObjectCoord, GameObject* object);
+bool CheckWayOutOfSizePlayingField(COORD& currentObjectCoord);
 void RenderCharacters(COORD currentObjectCoord, COORD lastObjectCoord, GameObject* object);
+void RefreshLastPosition(GameObject* object);
+void RefreshCurrentPosition(GameObject* object);
 
 ScreenSystem::ScreenSystem()
 {
@@ -39,15 +41,20 @@ void ScreenSystem::Execute()
     {
         if (object->GetType() == Updatable)
         {
-            const auto CurrentObjectCoord = CreateCurrentPositionCOORD(object);
-            const auto LastScreenCoord = CreateLastPositionCOORD(object);
+            auto CurrentObjectCoord = CreateCurrentPositionCOORD(object);
+            auto LastScreenCoord = CreateLastPositionCOORD(object);
 
             if (LastScreenCoord.X == CurrentObjectCoord.X && LastScreenCoord.Y == CurrentObjectCoord.Y && !object->
                 GetChangingState())
                 continue;
 
-            CheckWayOutOfSizePlayingField(CurrentObjectCoord, object);
+            if(CheckWayOutOfSizePlayingField(CurrentObjectCoord))
+            {
+                RefreshCurrentPosition(object);
+                continue;
+            }
             RenderCharacters(CurrentObjectCoord, LastScreenCoord, object);
+            RefreshLastPosition(object);
 
             object->ResetChanging();
         }
@@ -67,32 +74,22 @@ void RenderCharacters(COORD currentObjectCoord, COORD lastObjectCoord, GameObjec
     }
 }
 
-void CheckWayOutOfSizePlayingField(COORD currentObjectCoord, GameObject* object)
+bool CheckWayOutOfSizePlayingField(COORD& currentObjectCoord)
 {
-    auto position = object->GetPosition();
-    if (currentObjectCoord.X <= 0)
-    {
-        position.x = DW_SIZE - 1;
-        object->SetPosition(position);
-    }
-    if (currentObjectCoord.X >= DW_SIZE)
-    {
-        position.x = 0;
-        object->SetPosition(position);
-    }
+    return currentObjectCoord.X < 0 || currentObjectCoord.X > DW_SIZE || currentObjectCoord.Y < 0 ||
+        currentObjectCoord.Y > HW_SIZE;
+}
 
-    if (currentObjectCoord.Y <= 0)
-    {
-        position.y = HW_SIZE - 1;
-        object->SetPosition(position);
-    }
-    if (currentObjectCoord.Y >= HW_SIZE)
-    {
-        position.y = 0;
-        object->SetPosition(position);
-    }
+void RefreshLastPosition(GameObject* object)
+{
+    auto newPosition = object->GetPosition();
+    object->SetLastPosition(newPosition);
+}
 
-    object->SetLastPosition(position);
+void RefreshCurrentPosition(GameObject* object)
+{
+    auto newPosition = object->GetLastPosition();
+    object->SetPosition(newPosition);
 }
 
 COORD CreateCurrentPositionCOORD(GameObject* object)
