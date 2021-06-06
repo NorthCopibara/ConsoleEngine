@@ -106,7 +106,7 @@ COORD CreateCurrentPositionCOORD(GameObject* object)
 COORD CreateLastPositionCOORD(GameObject* object)
 {
     COORD lastScreenCoord;
-    lastScreenCoord.X = static_cast<short>(object->GetPosition().x);
-    lastScreenCoord.Y = static_cast<short>(object->GetPosition().y);
+    lastScreenCoord.X = static_cast<short>(object->GetLastPosition().x);
+    lastScreenCoord.Y = static_cast<short>(object->GetLastPosition().y);
     return lastScreenCoord;
 }
