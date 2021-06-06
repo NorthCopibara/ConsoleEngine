@@ -41,19 +41,19 @@ void ScreenSystem::Execute()
     {
         if (object->GetType() == Updatable)
         {
-            auto CurrentObjectCoord = CreateCurrentPositionCOORD(object);
-            auto LastScreenCoord = CreateLastPositionCOORD(object);
+            auto currentObjectCoord = CreateCurrentPositionCOORD(object);
+            auto lastScreenCoord = CreateLastPositionCOORD(object);
 
-            if (LastScreenCoord.X == CurrentObjectCoord.X && LastScreenCoord.Y == CurrentObjectCoord.Y && !object->
+            if (lastScreenCoord.X == currentObjectCoord.X && lastScreenCoord.Y == currentObjectCoord.Y && !object->
                 GetChangingState())
                 continue;
 
-            if(CheckWayOutOfSizePlayingField(CurrentObjectCoord))
+            if(CheckWayOutOfSizePlayingField(currentObjectCoord))
             {
                 RefreshCurrentPosition(object);
                 continue;
             }
-            RenderCharacters(CurrentObjectCoord, LastScreenCoord, object);
+            RenderCharacters(currentObjectCoord, lastScreenCoord, object);
             RefreshLastPosition(object);
 
             object->ResetChanging();
