@@ -221,6 +221,13 @@
     <ClCompile Include="Core\Scene\ObjectsPoolSystem.cpp" />
     <ClCompile Include="Core\Scene\ScreenSystem.cpp" />
     <ClCompile Include="Character\Character.cpp" />
+    <ClCompile Include="ECS\ECSComponent.cpp" />
+    <ClCompile Include="ECS\ECSEntity.cpp" />
+    <ClCompile Include="ECS\ECSFilter.cpp" />
+    <ClCompile Include="ECS\ECSInitSystem.cpp" />
+    <ClCompile Include="ECS\ECSRunSystem.cpp" />
+    <ClCompile Include="ECS\ECSWorld.cpp" />
+    <ClCompile Include="Tests\TestRunSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Character\Input.h" />
@@ -230,6 +237,15 @@
     <ClInclude Include="Core\Scene\ObjectsPoolSystem.h" />
     <ClInclude Include="Core\Scene\ScreenSystem.h" />
     <ClInclude Include="Character\Character.h" />
+    <ClInclude Include="ECS\ECSComponent.h" />
+    <ClInclude Include="ECS\ECSEntity.h" />
+    <ClInclude Include="ECS\ECSFilter.h" />
+    <ClInclude Include="ECS\ECSInitSystem.h" />
+    <ClInclude Include="ECS\ECSRunSystem.h" />
+    <ClInclude Include="ECS\ECSWorld.h" />
+    <ClInclude Include="Tests\Test1Component.h" />
+    <ClInclude Include="Tests\Test2Component.h" />
+    <ClInclude Include="Tests\TestRunSystem.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
